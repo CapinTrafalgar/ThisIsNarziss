@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+  <style>
+    #editor—wrapper {
+      border: 1px solid #ccc;
+      z-index: 100;
+      /* 按需定义 */
+    }
+
+    #toolbar-container {
+      border-bottom: 1px solid #ccc;
+    }
+
+    #editor-container {
+      height: 500px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p> -->
+  <form method="post" action="/"> <!-- action和/web/index中router.post的路径应一致 -->
+    <div>
+      <label for="uniformId">统一标识符：</label>
+      <!-- 独一无二，作为参数加到请求路径中 -->
+      <input name="uniformId" type="text" id="author">
+    </div>
+    <div>
+      <label for="author">作者：</label>
+      <!-- name 和 id可以重名 -->
+      <!-- for 和 下面的 id对应 -->
+      <input name="author" type="text" id="author">
+    </div>
+    <div>
+      <label for="time">时间：</label>
+      <input name="time" type="text" id="time">
+    </div>
+    <div>
+      <label for="title">标题：</label>
+      <input name="title" type="text" id="title">
+    </div>
+    <div>
+      <label for="time">正文：</label>
+      <textarea 
+        name="article" 
+        type="text" 
+        id="article"
+      >
+      </textarea>
+    </div>
+    <button type="submit">
+      提交
+    </button>
+  </form>
+  <!-- wangEditor编辑器 -->
+  <div id="editor—wrapper">
+    <div id="toolbar-container"><!-- 工具栏 --></div>
+    <div id="editor-container"><!-- 编辑器 --></div>
+  </div>
+  <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+  <script>
+    const { createEditor, createToolbar } = window.wangEditor
+
+    const editorConfig = {
+      placeholder: 'Type here...',
+      onChange(editor) {
+        const html = editor.getHtml()
+        //console.log('editor content', html, typeof(html))
+        // 也可以同步到 <textarea>
+        const textAreaArticle = document.getElementById('article')
+        textAreaArticle.value = html
+        //console.log(textAreaArticle);
+      }
+    }
+
+    const editor = createEditor({
+      selector: '#editor-container',
+      html: '<p><br></p>',
+      config: editorConfig,
+      mode: 'default', // or 'simple'
+    })
+
+    const toolbarConfig = {}
+
+    const toolbar = createToolbar({
+      editor,
+      selector: '#toolbar-container',
+      config: toolbarConfig,
+      mode: 'default', // or 'simple'
+    })
+  </script>
+</body>
+
+</html>
