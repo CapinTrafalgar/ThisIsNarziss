@@ -9,8 +9,8 @@
 
 <script>
   // 引入非路由组件
-  import Header from './components/Header'
-  import Footer from './components/Footer'
+  import Header from './components/Header' // Header组件
+  import Footer from './components/Footer' // Footer组件
 
   export default {
     name: 'App',

@@ -19,7 +19,6 @@
                     >
                         <!-- 发布时间 -->
                         <span
-                            class=""
                         >
                             <a>
                                 <span>发表于</span>&nbsp<time>{{article.time}}</time>
